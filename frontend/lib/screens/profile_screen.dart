@@ -13,7 +13,11 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    final user = auth.user!;
+    final user = auth.user;
+    if (user == null) {
+      // Logged out while this screen was still on top — close it.
+      return const Scaffold(body: SizedBox.shrink());
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Profile')),
@@ -252,7 +256,15 @@ class ProfileScreen extends StatelessWidget {
     );
 
     if (confirm != true || !context.mounted) return;
-    context.read<TransactionProvider>().clear();
-    await context.read<AuthProvider>().logout();
+
+    // Capture providers + navigator BEFORE we pop ourselves, because
+    // after the pop this BuildContext is no longer mounted.
+    final txnProvider = context.read<TransactionProvider>();
+    final authProvider = context.read<AuthProvider>();
+    final navigator = Navigator.of(context);
+
+    navigator.popUntil((route) => route.isFirst);
+    txnProvider.clear();
+    await authProvider.logout();
   }
 }

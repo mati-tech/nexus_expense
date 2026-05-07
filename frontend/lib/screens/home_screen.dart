@@ -50,7 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
     final txnProvider = context.watch<TransactionProvider>();
-    final user = auth.user!;
+    final user = auth.user;
+    if (user == null) {
+      // Auth was just cleared; AuthGate is about to swap us out.
+      return const Scaffold(body: SizedBox.shrink());
+    }
 
     return Scaffold(
       appBar: AppBar(
