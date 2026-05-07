@@ -1,0 +1,12 @@
+{
+  "name": "Nexus Ledger",
+  "short_name": "Nexus",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F7FAFC",
+  "theme_color": "#0B2545",
+  "description": "Smart expense tracking with natural language input.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": []
+}
