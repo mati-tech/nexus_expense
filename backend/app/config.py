@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     secret_key: str = "change-me-in-production-please-use-a-long-random-string"
     access_token_expire_minutes: int = 60 * 24 * 7
     algorithm: str = "HS256"
-    cors_origins: str = "http://localhost:3000,http://localhost:8080,http://localhost:5000"
+    cors_origins: str = "http://localhost:3000,http://localhost:8080,http://localhost:5000,https://nexus-expense.appwrite.network"
 
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=False)
 
