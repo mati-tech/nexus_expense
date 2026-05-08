@@ -24,7 +24,7 @@ class ApiService {
   // Override at runtime via --dart-define=API_BASE_URL=https://...
   static const String baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'https://nexus-expense.onrender.com',
+    defaultValue: 'http://localhost:8000',
   );
 
   String? _token;
