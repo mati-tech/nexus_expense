@@ -30,7 +30,7 @@ class NexusLedgerApp extends StatelessWidget {
             auth: context.read<AuthProvider>(),
           ),
           update: (_, auth, previous) =>
-              previous ?? TransactionProvider(api: api, auth: auth),
+          previous ?? TransactionProvider(api: api, auth: auth),
         ),
       ],
       child: MaterialApp(
