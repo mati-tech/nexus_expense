@@ -25,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _password.dispose();
     super.dispose();
   }
-
   Future<void> _login() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _busy = true);
@@ -35,15 +34,36 @@ class _LoginScreenState extends State<LoginScreen> {
           .read<AuthProvider>()
           .login(_username.text.trim(), _password.text);
     } on ApiException catch (e) {
-      messenger.showSnackBar(SnackBar(content: Text(e.message)));
-    } catch (_) {
+      // This should show your API error
+      messenger.showSnackBar(SnackBar(content: Text('API Error: ${e.message}')));
+    } catch (e) {
+      // Let's see what the actual error is
+      print('Login error details: $e');
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not sign in')),
+        SnackBar(content: Text('Could not sign in: $e')),
       );
     } finally {
       if (mounted) setState(() => _busy = false);
     }
   }
+  // Future<void> _login() async {
+  //   if (!_formKey.currentState!.validate()) return;
+  //   setState(() => _busy = true);
+  //   final messenger = ScaffoldMessenger.of(context);
+  //   try {
+  //     await context
+  //         .read<AuthProvider>()
+  //         .login(_username.text.trim(), _password.text);
+  //   } on ApiException catch (e) {
+  //     messenger.showSnackBar(SnackBar(content: Text(e.message)));
+  //   } catch (_) {
+  //     messenger.showSnackBar(
+  //       const SnackBar(content: Text('Could not sign in')),
+  //     );
+  //   } finally {
+  //     if (mounted) setState(() => _busy = false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
